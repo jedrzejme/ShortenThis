@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorten URL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shorten-url-styles.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Shorten URL</h1>
+        {% if shortened_url %}
+            <p>Shortened URL: <span id="short-url">{{ shortened_url }}</span></p>
+            <button type="copy-to-clipboard" onclick="copyToClipboard()">Copy to Clipboard</button>
+            <br><br>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            <label for="url">URL</label>
+            <input type="url" id="url" name="url" autocomplete="off" required>
+
+            <label for="custom-short-url">Custom short URL</label>
+            <input type="text" id="custom-short-url" name="custom-short-url" autocomplete="off">
+
+            <button type="submit">Shorten URL</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/shorten-url-scripts.js') }}"></script>
+</body>
+</html>

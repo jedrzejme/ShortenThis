@@ -1,0 +1,9 @@
+services:
+    yourowncard:
+        container_name: shorten-that
+        ports:
+            - 6700:6700 # <Host Port>:<Container Port (do not change)>
+        image: shorten-that
+        volumes:
+            - ./config.ini:/app/config.ini
+        restart: unless-stopped
