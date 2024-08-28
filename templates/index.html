@@ -11,7 +11,12 @@
 <body>
     <div class="container">
         <h1>Shorten That</h1>
+        {% if not disable_authentication %}
         <button><a href="/login">Login</a></button>
+        {% endif %}
+        {% if disable_authentication %}
+        <button><a href="/shorten-url">Shorten URL</a></button>
+        {% endif %}
         <a href="https://github.com/jedrzejme/ShortenThat" target="_blank" style="font-style: italic;"><div class="footer">Show GitHub project</div></a>
     </div>
 </body>

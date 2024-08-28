@@ -50,8 +50,15 @@ def index():
             default_url_length = str(request.form.get("default-url-length"))
             app_config.set('main', 'default_url_length', default_url_length)
 
-            password = str(request.form.get("password"))
-            app_config.set('main', 'password', password)
+            if request.form.get("enable-authentication") == 'on':
+                password = str(request.form.get("password"))
+                if password == '':
+                    app_config.set('main', 'disable_authentication', 'True')
+                else:
+                    app_config.set('main', 'password', password)
+                    app_config.set('main', 'disable_authentication', 'False')
+            else:
+                app_config.set('main', 'disable_authentication', 'True')
             
             app_secret_key = str(random_string(32))
             app_config.set('main', 'app_secret_key', app_secret_key)
@@ -70,7 +77,7 @@ def index():
         return render_template('setup.html')
     
     # If already setup, render the index page
-    return render_template('index.html')
+    return render_template('index.html', disable_authentication=app_config.get('main', 'disable_authentication'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -89,7 +96,7 @@ def login():
 
 @app.route('/shorten-url', methods=['GET', 'POST'])
 def shorten_url():
-    if session.get('auth'):
+    if session.get('auth') or app_config.get('main', 'disable_authentication') == 'True':
         if request.method == 'POST':
             url = request.form.get("url")
             short_url = request.form.get("custom-short-url")
