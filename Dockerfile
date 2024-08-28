@@ -2,11 +2,13 @@ FROM python:3.12.1
 
 WORKDIR /app
 
-COPY requirements.txt /app/
+COPY . /app/
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app/
+RUN chmod 644 /app/config.ini
+
+RUN chmod 644 /app/urls.ini
 
 EXPOSE 6700
 

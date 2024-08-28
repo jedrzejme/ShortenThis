@@ -51,7 +51,7 @@ git clone https://github.com/jedrzejme/ShortenThat.git
 ```
 docker build -t shorten-that .
 ```
-5) Run docker-compose (by default it will run on port 6700):
+5) Run docker-compose (by default it will run on port 5000):
 ```
 docker-compose up -d
 ```
@@ -68,7 +68,7 @@ git clone https://github.com/jedrzejme/ShortenThat.git
 python -m pip install -r requirements.txt
 ```
 4) Edit config.ini
-5) Run app.py (by default it will run on port 6700):
+5) Run app.py (by default it will run on port 5000):
 ```
 python app.py
 ```
