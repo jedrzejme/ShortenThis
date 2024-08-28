@@ -92,7 +92,7 @@ def shortUrl(short_url):
     # Check if the short_url exists in urls.ini
     if urls_config.has_section(short_url):
         url = urls_config.get(short_url, 'url')
-        return redirect(url)
+        return redirect(url, code=301)
     else:
         return abort(404, description="URL not found")
 
