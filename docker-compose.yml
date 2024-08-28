@@ -6,4 +6,5 @@ services:
         image: shorten-that
         volumes:
             - ./config.ini:/app/config.ini
+            - ./urls.ini:/app/urls.ini
         restart: unless-stopped
