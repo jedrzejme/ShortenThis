@@ -7,11 +7,6 @@ app = Flask(__name__, static_url_path='/static')
 app_config = ConfigParser()
 app_config.read('config.ini')
 
-# App settings from config.ini
-app.secret_key = ""
-port = app_config.getint('main', 'port')
-debug = app_config.getboolean('main', 'debug')
-
 # Function to shorten URL
 def shortening_url(url, short_url):
     urls_config = ConfigParser()
@@ -37,6 +32,16 @@ def random_string(length):
     import string
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
+def hash_string(string):
+    import hashlib
+    return hashlib.sha256(string.encode()).hexdigest()
+
+# App settings from config.ini
+app.secret_key = str(random_string(32))
+app_config.set('main', 'app_secret_key', app.secret_key)
+port = app_config.getint('main', 'port')
+debug = app_config.getboolean('main', 'debug')
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     setuped = app_config.getboolean('main', 'setuped')
@@ -51,7 +56,7 @@ def index():
             app_config.set('main', 'default_url_length', default_url_length)
 
             if request.form.get("enable-authentication") == 'on':
-                password = str(request.form.get("password"))
+                password = hash_string(str(request.form.get("password")))
                 if password == '':
                     app_config.set('main', 'disable_authentication', 'True')
                 else:
@@ -59,10 +64,6 @@ def index():
                     app_config.set('main', 'disable_authentication', 'False')
             else:
                 app_config.set('main', 'disable_authentication', 'True')
-            
-            app_secret_key = str(random_string(32))
-            app_config.set('main', 'app_secret_key', app_secret_key)
-            app.secret_key = app_secret_key
 
             app_config.set('main', 'setuped', 'True')
             
@@ -77,18 +78,18 @@ def index():
         return render_template('setup.html')
     
     # If already setup, render the index page
-    return render_template('index.html', disable_authentication=app_config.get('main', 'disable_authentication'))
+    return render_template('index.html', disable_authentication=app_config.getboolean('main', 'disable_authentication'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        password = request.form.get("password")
+        password = str(request.form.get("password"))
         
         # Read from config.ini again to ensure fresh data
         app_config.read('config.ini')
 
         # Check password and set session if authenticated
-        if password == app_config.get('main', 'password'):
+        if hash_string(password) == app_config.get('main', 'password'):
             session['auth'] = True
             return redirect('/shorten-url')
         
@@ -103,7 +104,7 @@ def shorten_url():
 
             # Generate a random short URL if not provided
             if short_url == '':
-                short_url = random_string(app_config.getint('main', 'default_url_lenght'))
+                short_url = random_string(app_config.getint('main', 'default_url_length'))
 
             # Correct the URL if needed
             url = correction_of_url(url)
