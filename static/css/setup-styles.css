@@ -1,0 +1,79 @@
+body {
+    background-color: #C2C2B6;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: device-width;
+}
+
+.form-container {
+    background-color: #D1D1C5;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #000000;
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    color: #000000;
+    display: block;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+textarea {
+    border: 1px solid #E3E3D5;
+    background-color: #E3E3D5;
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #888888;
+    color: #FFFFFF;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #666666;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+.footer {
+    color: #000000;
+    margin-top: 20px;
+    font-size: 0.8em;
+}

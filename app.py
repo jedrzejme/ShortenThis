@@ -8,11 +8,9 @@ app_config = ConfigParser()
 app_config.read('config.ini')
 
 # App settings from config.ini
-app_url = app_config.get('main', 'app_url')
+app.secret_key = ""
 port = app_config.getint('main', 'port')
 debug = app_config.getboolean('main', 'debug')
-app.secret_key = app_config.get('main', 'app_secret_key')
-default_url_lenght = app_config.getint('main', 'default_url_lenght')
 
 # Function to shorten URL
 def shortening_url(url, short_url):
@@ -34,14 +32,44 @@ def correction_of_url(url):
         url = 'http://' + url
     return url
 
-def random_string():
-    length = default_url_lenght
+def random_string(length):
     import random
     import string
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    setuped = app_config.getboolean('main', 'setuped')
+    
+    if not setuped:
+        if request.method == 'POST':
+            # Handle the form submission
+            app_url = str(request.form.get("app-url"))
+            app_config.set('main', 'app_url', app_url)
+            
+            default_url_length = str(request.form.get("default-url-length"))
+            app_config.set('main', 'default_url_length', default_url_length)
+
+            password = str(request.form.get("password"))
+            app_config.set('main', 'password', password)
+            
+            app_secret_key = str(random_string(32))
+            app_config.set('main', 'app_secret_key', app_secret_key)
+            app.secret_key = app_secret_key
+
+            app_config.set('main', 'setuped', 'True')
+            
+            # Save changes to the config.ini
+            with open('config.ini', 'w') as configfile:
+                app_config.write(configfile)
+            
+            # Redirect to the index after setup
+            return redirect('/')
+        
+        # Render the setup page on GET requests
+        return render_template('setup.html')
+    
+    # If already setup, render the index page
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -68,7 +96,7 @@ def shorten_url():
 
             # Generate a random short URL if not provided
             if short_url == '':
-                short_url = random_string()
+                short_url = random_string(app_config.getint('main', 'default_url_lenght'))
 
             # Correct the URL if needed
             url = correction_of_url(url)
@@ -77,6 +105,9 @@ def shorten_url():
             shortening_url(url, short_url)
 
             # Generate the shortened URL
+            app_url = app_config.get('main', 'app_url')
+            if app_url.endswith('/'):
+                app_url = app_url[:-1]
             shortened_url = f"{app_url}/{short_url}"
             return render_template('shorten-url.html', shortened_url=shortened_url)
         else:

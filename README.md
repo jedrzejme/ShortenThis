@@ -46,11 +46,11 @@
 ```
 git clone https://github.com/jedrzejme/ShortenThat.git
 ```
-3) Edit config.ini (do not change port in config.ini; if you want to change external port change it in docker-compose.yml)
-4) Create docker image:
+3) Create docker image:
 ```
 docker build -t shorten-that .
 ```
+4) Optionally edit port in docker-compose.yml
 5) Run docker-compose (by default it will run on port 5000):
 ```
 docker-compose up -d
@@ -67,7 +67,7 @@ git clone https://github.com/jedrzejme/ShortenThat.git
 ```
 python -m pip install -r requirements.txt
 ```
-4) Edit config.ini
+4) Optionally edit port in config.ini
 5) Run app.py (by default it will run on port 5000):
 ```
 python app.py
