@@ -30,6 +30,7 @@
 **❓ What is this?** Web app for shortening links. Backend is written in Flask (Python framework).
 
 **❓ How to use it?**
+* [**Using version hosted by me**](https://shorten-that.jbs.ovh)
 * [**Using docker-compose**](#using-docker-compose-to-run-shorten-that)
 * [**Using Python**](#using-python-to-run-shorten-that)
 
