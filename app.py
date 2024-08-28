@@ -75,7 +75,7 @@ def index():
             return redirect('/')
         
         # Render the setup page on GET requests
-        return render_template('setup.html')
+        return render_template('setup.html', app_url = f"{request.headers.get('X-Forwarded-Proto') or request.scheme}://{request.headers.get('X-Forwarded-Host') or request.host}")
     
     # If already setup, render the index page
     return render_template('index.html', disable_authentication=app_config.getboolean('main', 'disable_authentication'))
