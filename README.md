@@ -75,8 +75,9 @@ python app.py
 6) It works!
 
 ## 🚀 Features
-* Authentication by password provided in config.ini
-* Shortening URL with custom short URL
+* Setup screen on first run
+* Authentication by password
+* Shortening URL with custom short URL (if not provided, short URL will be set to random string of length provided in setup)
 
 ## 💲 Support
 <p><a href="https://support.jedrzej.me/" target="_blank"> <img align="left" src="https://raw.githubusercontent.com/jedrzejme/jedrzejme/main/assets/supportme.svg" height="50" width="210" alt="jedrzejme" /></a></p>
