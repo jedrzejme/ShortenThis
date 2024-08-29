@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, abort, redirect, session
 from configparser import ConfigParser
+import random
+import string
+import hashlib
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -28,12 +31,9 @@ def correction_of_url(url):
     return url
 
 def random_string(length):
-    import random
-    import string
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 def hash_string(string):
-    import hashlib
     return hashlib.sha256(string.encode()).hexdigest()
 
 # App settings from config.ini
