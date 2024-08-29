@@ -6,22 +6,22 @@
         alt = 'Icon' 
     />
     <br>
-    Shorten That
+    Shorten This
     <br>
 </h1>
 
 <div align = 'center'>
-    <a href = 'https://github.com/jedrzejme/ShortenThat/'>
-        <img src = 'https://img.shields.io/github/stars/jedrzejme/ShortenThat?style=for-the-badge&color=%23cfb002'/>
+    <a href = 'https://github.com/jedrzejme/ShortenThis/'>
+        <img src = 'https://img.shields.io/github/stars/jedrzejme/ShortenThis?style=for-the-badge&color=%23cfb002'/>
     </a>
-    <a href = 'https://github.com/jedrzejme/ShortenThat/tags'>
-        <img src = 'https://img.shields.io/github/v/tag/jedrzejme/ShortenThat?style=for-the-badge&label=version'/>
+    <a href = 'https://github.com/jedrzejme/ShortenThis/tags'>
+        <img src = 'https://img.shields.io/github/v/tag/jedrzejme/ShortenThis?style=for-the-badge&label=version'/>
     </a>
-    <a href = 'https://github.com/jedrzejme/ShortenThat/issues'>
-        <img src = 'https://img.shields.io/github/issues/jedrzejme/ShortenThat?style=for-the-badge&color=%23ff6f00'/>
+    <a href = 'https://github.com/jedrzejme/ShortenThis/issues'>
+        <img src = 'https://img.shields.io/github/issues/jedrzejme/ShortenThis?style=for-the-badge&color=%23ff6f00'/>
     </a>
-    <a href = 'https://github.com/jedrzejme/ShortenThat/pulls'>
-        <img src = 'https://img.shields.io/github/issues-pr/jedrzejme/ShortenThat?style=for-the-badge'/>
+    <a href = 'https://github.com/jedrzejme/ShortenThis/pulls'>
+        <img src = 'https://img.shields.io/github/issues-pr/jedrzejme/ShortenThis?style=for-the-badge'/>
     </a>
 </div>
 
@@ -45,7 +45,7 @@
 1) Install Docker, docker-compose and Git
 2) Clone this repository and enter its directory:
 ```
-git clone https://github.com/jedrzejme/ShortenThat.git
+git clone https://github.com/jedrzejme/ShortenThis.git
 ```
 3) Create docker image:
 ```
@@ -62,7 +62,7 @@ docker-compose up -d
 1) Install Python
 2) Clone this repository and enter its directory:
 ```
-git clone https://github.com/jedrzejme/ShortenThat.git
+git clone https://github.com/jedrzejme/ShortenThis.git
 ```
 3) Install requirements.txt:
 ```

@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shorten That</title>
+    <title>Shorten This</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index-styles.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Shorten That</h1>
+        <h1>Shorten This</h1>
         {% if not disable_authentication %}
         <button><a href="/login">Login</a></button>
         {% endif %}
         {% if disable_authentication %}
         <button><a href="/shorten-url">Shorten URL</a></button>
         {% endif %}
-        <a href="https://github.com/jedrzejme/ShortenThat" target="_blank" style="font-style: italic;"><div class="footer">Show GitHub project</div></a>
+        <a href="https://github.com/jedrzejme/ShortenThis" target="_blank" style="font-style: italic;"><div class="footer">Show GitHub project</div></a>
     </div>
 </body>
 </html>
