@@ -38,6 +38,7 @@
 * [Python](https://www.python.org/)
 * [Python libraries](/requirements.txt)
 * [Docker](https://www.docker.com/)
+* [Bootstrap Studio](https://bootstrapstudio.io/)
 * [Coding](https://code.visualstudio.com/)
 * [Git management](https://desktop.github.com/)
 
