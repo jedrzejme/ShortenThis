@@ -50,7 +50,7 @@ git clone https://github.com/jedrzejme/ShortenThis.git
 ```
 3) Create docker image:
 ```
-docker build -t shorten-that .
+docker build -t shorten-this .
 ```
 4) Optionally edit port in docker-compose.yml
 5) Run docker-compose (by default it will run on port 5000):

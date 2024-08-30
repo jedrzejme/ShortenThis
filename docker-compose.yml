@@ -3,7 +3,7 @@ services:
         container_name: shorten-this
         ports:
             - 5000:5000 # <Host Port>:<Container Port (do not change)>
-        image: shorten-that
+        image: shorten-this
         volumes:
             - ./config.ini:/app/config.ini
             - ./urls.ini:/app/urls.ini
