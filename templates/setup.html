@@ -5,14 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>ShortenThis</title>
-    <link rel="icon" type="image/x-icon" sizes="2000x2000" href="{{ url_for('static', filename='/assets/img/favicon.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="icon" type="image/x-icon" sizes="2000x2000" href="{{ url_for('static', filename='assets/img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/assets/css/bs-theme-overrides.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bs-theme-overrides.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
 </head>
 
 <body style="background: #1c1c1c;">
+    <!-- Start: Banner Clean -->
     <section class="py-4 py-xl-5">
         <div class="container" style="color: rgb(255,255,255);">
             <div class="text-center p-4 p-lg-5">
@@ -20,7 +21,7 @@
                 <h1 class="fw-bold mb-4" style="font-family: 'Roboto';">Shorten This</h1>
             </div>
         </div>
-    </section>
+    </section><!-- End: Banner Clean -->
     <div class="container" style="width: 50em;background: #434343;border-radius: 1em;max-width: 100vw;">
         <form style="padding: 1em;" method="post" enctype="multipart/form-data">
             <div style="margin-bottom: 1vw;">
@@ -62,9 +63,9 @@
             </div>
         </form>
     </div>
-    <script src="{{ url_for('static', filename='/assets/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='/assets/js/setup-scripts.js') }}"></script>
-    <script src="{{ url_for('static', filename='/assets/js/shorten-url-scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/setup-scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/shorten-url-scripts.js') }}"></script>
 </body>
 
 </html>
