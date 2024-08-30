@@ -1,31 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-bs-theme="light" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shorten URL</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/shorten-url-styles.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ShortenThis</title>
+    <link rel="icon" type="image/x-icon" sizes="2000x2000" href="{{ url_for('static', filename='/assets/img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/assets/css/bs-theme-overrides.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/assets/css/styles.css') }}">
 </head>
-<body>
-    <div class="form-container">
-        <h1>Shorten URL</h1>
-        {% if shortened_url %}
-            <p>Shortened URL: <span id="short-url">{{ shortened_url }}</span></p>
-            <button type="copy-to-clipboard" onclick="copyToClipboard()">Copy to Clipboard</button>
-            <br><br>
-        {% endif %}
-        <form method="post" enctype="multipart/form-data">
-            <label for="url">URL</label>
-            <input type="text" id="url" name="url" autocomplete="off" required>
 
-            <label for="custom-short-url">Custom short URL</label>
-            <input type="text" id="custom-short-url" name="custom-short-url" autocomplete="off">
-
-            <button type="submit">Shorten URL</button>
+<body style="background: #1c1c1c;">
+    <section class="py-4 py-xl-5">
+        <div class="container" style="color: rgb(255,255,255);">
+            <div class="text-center p-4 p-lg-5">
+                <p class="fw-bold mb-2" style="color: rgb(255,138,0);border-color: #ff8a00;">Shorten URL</p>
+                <h1 class="fw-bold mb-4" style="font-family: 'Roboto';">Shorten This</h1>
+            </div>
+        </div>
+    </section>
+    <div class="container" style="width: 50em;background: #434343;border-radius: 1em;max-width: 100vw;">
+        <form style="padding: 1em;" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom: 1vw;">
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><label class="col-form-label text-center" style="color: rgb(255,255,255);font-family: 'Roboto';" for="url">URL</label></div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="text" id="url" autocomplete="off" name="url" required=""></div>
+                </div>
+            </div>
+            <div style="margin-top: 1vw;margin-bottom: 1vw;">
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><label class="col-form-label text-center" style="color: rgb(255,255,255);font-family: 'Roboto';" for="custom-short-url">Custom short URL</label></div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="text" id="custom-short-url" autocomplete="off" name="custom-short-url"></div>
+                </div>
+            </div>
+            <div style="margin-top: 1vw;margin-bottom: 1vw;">
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><button class="btn btn-primary" type="submit" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 5em;padding-right: 5em;"><strong>Shorten URL</strong></button></div>
+                </div>
+            </div>
         </form>
-    </div>
-    <script src="{{ url_for('static', filename='js/shorten-url-scripts.js') }}"></script>
+    </div>{% if shortened_url %}
+    <div class="container" style="width: 50em;background: #434343;border-radius: 1em;max-width: 100vw;margin-top: 1em;">
+        <div style="padding: 1em;">
+            <div class="row">
+                <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
+                    <p style="color: rgb(255,255,255);font-weight: bold;">Shortened URL</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
+                    <p id="short-url">{{ shortened_url }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><button class="btn btn-primary" type="button" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 5em;padding-right: 5em;" onclick="copyToClipboard()"><strong>Copy to Clipboard</strong></button></div>
+            </div>
+        </div>
+    </div>{% endif %}
+    <script src="{{ url_for('static', filename='/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/assets/js/setup-scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='/assets/js/shorten-url-scripts.js') }}"></script>
 </body>
+
 </html>

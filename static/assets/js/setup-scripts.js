@@ -1,6 +1,6 @@
 // Get the checkbox and the div
 const checkbox = document.getElementById('enable-authentication');
-const div = document.getElementById('password');
+const div = document.getElementById('password-div');
 
 // Function to toggle div visibility
 function toggleDiv() {
