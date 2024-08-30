@@ -29,7 +29,7 @@
                     <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><label class="col-form-label text-center" style="color: rgb(255,255,255);font-family: 'Roboto';" for="url">URL</label></div>
                 </div>
                 <div class="row">
-                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="text" id="url" autocomplete="off" name="url" required=""></div>
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="text" id="url" autocomplete="off" name="url" required="" style="--bs-primary: #ff8a00;--bs-primary-rgb: 255,138,0;"></div>
                 </div>
             </div>
             <div style="margin-top: 1em;margin-bottom: 1em;">
@@ -55,9 +55,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                    <p id="short-url">{{ shortened_url }}</p>
-                </div>
+                <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><a href="{{ shortened_url }}" style="color: rgba(13,110,253,0);" target="_blank">
+                        <p id="short-url">{{ shortened_url }}</p>
+                    </a></div>
             </div>
             <div class="row">
                 <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><button class="btn btn-primary" type="button" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 5em;padding-right: 5em;" onclick="copyToClipboard()"><strong>Copy to Clipboard</strong></button></div>
