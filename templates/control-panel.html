@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Shorten This</title>
+    <link rel="icon" type="image/x-icon" sizes="2000x2000" href="{{ url_for('static', filename='assets/img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bs-theme-overrides.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+</head>
+
+<body style="background: #1c1c1c;">
+    <!-- Start: Banner Clean -->
+    <section class="py-4 py-xl-5">
+        <div class="container" style="color: rgb(255,255,255);">
+            <div class="text-center p-4 p-lg-5">
+                <p class="fw-bold mb-2" style="color: rgb(255,138,0);border-color: #ff8a00;">Control panel</p>
+                <h1 class="fw-bold mb-4" style="font-family: 'Roboto';">Shorten This</h1>
+            </div>
+        </div>
+    </section><!-- End: Banner Clean -->
+    <div class="container" style="background: #434343;border-radius: 1em;padding: 1em;">
+        <div class="row">
+            <div class="col">
+                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p>
+            </div>{% if not enable_authentication %}
+            <div class="col text-end"><a class="btn btn-primary" role="button" id="logout" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 2em;padding-right: 2em;" href="/logout"><strong>Logout</strong></a></div>{% endif %}
+        </div>
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <div class="row">
+                                    <div class="col d-flex d-xxl-flex justify-content-center"><label class="col-form-label" style="color: rgb(255,255,255);" for="url">Enter URL</label></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
+                                        <!-- Start: url --><input class="form-control" type="text" id="url" autocomplete="off" required="" name="url"><!-- End: url -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div>
+                                <div class="row">
+                                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><label class="col-form-label" style="color: rgb(255,255,255);" for="custom-short-url">Custom short URL</label></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
+                                        <!-- Start: custom-short-url --><input class="form-control" type="text" id="custom-short-url" autocomplete="off" name="custom-short-url"><!-- End: custom-short-url -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 1em;margin-bottom: 1em;">
+                        <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><button class="btn btn-primary" type="submit" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 5em;padding-right: 5em;"><strong>Shorten URL</strong></button></div>
+                    </div>
+                </form>
+            </div>
+        </div>{% if shortened_url %}
+        <div class="row">
+            <div class="col">
+                <div style="padding: 1em;">
+                    <div class="row">
+                        <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><a href="{{ shortened_url }}" style="color: rgba(13,110,253,0);" target="_blank">
+                                <p id="short-url">{{ shortened_url }}</p>
+                            </a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><button class="btn btn-primary" type="button" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 5em;padding-right: 5em;" onclick="copyToClipboard()"><strong>Copy to Clipboard</strong></button></div>
+                    </div>
+                </div>
+            </div>
+        </div>{% endif %}
+        <div class="row">
+            <div class="col"><div class="table-responsive" style="border-radius: 1em;margin-top: 1em;margin-bottom: 1em;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">Short URL</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">Original URL</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">Date</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">IP</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">Clicks</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for url in urls %}
+            <tr>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);"><a href="{{ url.short_url }}" style="color: rgba(13,110,253,0);" target="_blank">
+                        <p style="color: rgb(255,255,255);">{{ url.short_url }}</p>
+                    </a></td>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);"><a href="{{ url.url }}" style="color: rgba(13,110,253,0);" target="_blank">
+                        <p style="color: rgb(255,255,255);">{{ url.url }}</p>
+                    </a></td>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);">{{ url.date }}</td>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);">{{ url.ip }}</td>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);">{{ url.clicks }}</td>
+                <td style="background: rgb(67,67,67);color: rgba(255,255,255,0);"><a href="/control-panel/action?action=delete&amp;short_url={{ url.short_url }}" style="color: rgba(13,110,253,0);"><i class="far fa-trash-alt text-white d-flex d-xxl-flex justify-content-start justify-content-xxl-start" style="color: rgba(255,255,255,0);"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/setup-scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/shorten-url-scripts.js') }}"></script>
+</body>
+
+</html>

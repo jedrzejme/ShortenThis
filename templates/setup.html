@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>ShortenThis</title>
+    <title>Shorten This</title>
     <link rel="icon" type="image/x-icon" sizes="2000x2000" href="{{ url_for('static', filename='assets/img/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap">
@@ -48,9 +48,15 @@
                     <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input type="checkbox" id="enable-authentication" name="enable-authentication"></div>
                 </div>
             </div>
-            <div id="password-div" style="margin-top: 1em;margin-bottom: 1em;">
+            <div id="user-div" style="margin-top: 1em;margin-bottom: 1em;">
                 <div class="row">
-                    <div class="col d-flex justify-content-center"><label class="col-form-label text-center" style="color: rgb(255,255,255);font-family: 'Roboto';" for="password">Password</label></div>
+                    <div class="col d-flex justify-content-center"><label class="col-form-label text-center" style="color: rgb(255,255,255);font-family: 'Roboto';" for="username">Username</label></div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="text" id="username" name="username"></div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center"><label class="col-form-label text-center" style="color: rgb(255,255,255);font-family: 'Roboto';" for="password-1">Password</label></div>
                 </div>
                 <div class="row">
                     <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="password" id="password" name="password"></div>

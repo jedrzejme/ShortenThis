@@ -30,7 +30,7 @@
 **❓ What is this?** Web app for shortening links. Backend is written in Flask (Python framework).
 
 **❓ How to use it?**
-* [**Using version hosted by me**](https://shorten-that.jbs.ovh)
+* [**Using version hosted by me**](https://shorten-this.jbs.ovh)
 * [**Using docker-compose**](#using-docker-compose-to-run-shorten-that)
 * [**Using Python**](#using-python-to-run-shorten-that)
 
@@ -80,6 +80,9 @@ python app.py
 * Setup screen on first run
 * Authentication by password
 * Shortening URL with custom short URL (if not provided, short URL will be set to random string of length provided in setup)
+* Stats of clicks
+* Option to delete link in control panel
+* Usage of sqlite3 to manage data about links and app
 
 ## 💲 Support
 <p><a href="https://support.jedrzej.me/" target="_blank"> <img align="left" src="https://raw.githubusercontent.com/jedrzejme/jedrzejme/main/assets/supportme.svg" height="50" width="210" alt="jedrzejme" /></a></p>
