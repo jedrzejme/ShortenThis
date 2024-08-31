@@ -198,7 +198,7 @@ def logout():
 
 @app.route('/control-panel/action', methods=['GET', 'POST'])
 def control_panel_action():
-    if session.get('auth') or getting_config('disable_authentication') == 'True':
+    if session.get('auth') or bool(getting_config('disable_authentication')):
         action = request.args.get('action')
         short_url = request.args.get('short_url')
         if action == 'delete':
