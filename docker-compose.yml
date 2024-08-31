@@ -5,6 +5,6 @@ services:
             - 5000:5000 # <Host Port>:<Container Port (do not change)>
         image: shorten-this
         volumes:
+            - ./database.db:/app/database.db
             - ./config.ini:/app/config.ini
-            - ./urls.ini:/app/urls.ini
         restart: unless-stopped
