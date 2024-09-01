@@ -154,8 +154,11 @@ def index():
         if request.method == 'POST':
             # Handle the form submission
             app_url = str(request.form.get("app-url"))
-            
             default_url_length = str(request.form.get("default-url-length"))
+            favicon = request.files.get('favicon') or None
+            if favicon:
+                file = favicon
+                file.save("static/assets/img/favicon.png")
 
             if request.form.get("enable-authentication") == 'on':
                 username = str(request.form.get("username"))
@@ -211,6 +214,10 @@ def control_panel():
             if request.method == 'POST':
                 app_url = str(request.form.get("app-url"))
                 default_url_length = str(request.form.get("default-url-length"))
+                favicon = request.files.get('favicon') or None
+                if favicon:
+                    file = favicon
+                    file.save("static/assets/img/favicon.png")
 
                 changing_config('app_url', app_url)
                 changing_config('default_url_length', default_url_length)
