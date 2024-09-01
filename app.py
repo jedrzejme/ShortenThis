@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, abort, redirect, session
+from flask import Flask, render_template, request, abort, redirect, session, send_file
 from configparser import ConfigParser
 import random
 import string
@@ -245,6 +245,9 @@ def control_panel_action():
         username = request.args.get('username')
         delete_user(username)
         return redirect('/control-panel?section=users')
+    elif action == 'download_backup' and session.get('auth'):
+        now = datetime.now()
+        return send_file("database.db", as_attachment=True, download_name=f"ShortenThis-backup-{now.strftime("%Y-%m-%d %H-%M-%S")}.db")
     else:
         return abort(404, description="Action not found")
 
