@@ -181,20 +181,23 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        username = str(request.form.get("username"))
-        password = str(request.form.get("password"))
+    if not bool(getting_config('disable_authentication')):
+        if request.method == 'POST':
+            username = str(request.form.get("username"))
+            password = str(request.form.get("password"))
 
-        # Check password and set session if authenticated
-        if hash_string(password) == get_userinfo(username, "password"):
-            session['auth'] = True
-            session['username'] = username
-            return redirect('/control-panel?section=urls')
-        
-    return render_template('login.html')
+            # Check password and set session if authenticated
+            if hash_string(password) == get_userinfo(username, "password"):
+                session['auth'] = True
+                session['username'] = username
+                return redirect('/control-panel?section=urls')
+            
+        return render_template('login.html')
+    else:
+        return redirect('/')
 
 @app.route('/control-panel', methods=['GET', 'POST'])
-def shorten_url():
+def control_panel():
     if session.get('auth') or bool(getting_config('disable_authentication')):
         section = request.args.get("section")
         if section == 'urls':
@@ -204,31 +207,26 @@ def shorten_url():
                 shortened_url = shortening_url(url, short_url)
                 return render_template('control-panel.html', shortened_url=shortened_url, username=session.get('username') or "user", urls=get_all_urls(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
             return render_template('control-panel.html', username=session.get('username') or "user", urls=get_all_urls(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
-        elif section == 'settings':
+        elif section == 'settings' and session.get('auth'):
             if request.method == 'POST':
                 app_url = str(request.form.get("app-url"))
                 default_url_length = str(request.form.get("default-url-length"))
 
                 changing_config('app_url', app_url)
                 changing_config('default_url_length', default_url_length)
-                return redirect('control-panel?section=urls')
-            return render_template('control-panel.html', app_url = getting_config('app_url'), default_url_length = int(getting_config('default_url_length')), section=request.args.get("section"))
-        elif section == 'users':
+                return redirect('control-panel?section=settings')
+            return render_template('control-panel.html', username=session.get('username') or "user", app_url = getting_config('app_url'), default_url_length = int(getting_config('default_url_length')), section=request.args.get("section"))
+        elif section == 'users' and session.get('auth'):
             if request.method == 'POST':
                 username = str(request.form.get("username"))
                 password = hash_string(str(request.form.get("password")))
                 permissions = 10
                 creating_user(username, password, permissions)
-                return render_template('control-panel.html', username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
+                return redirect('control-panel?section=users')
             return render_template('control-panel.html', username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
     else:
         return redirect('/login')
     
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect('/')
-
 @app.route('/control-panel/action', methods=['GET', 'POST'])
 def control_panel_action():
     action = request.args.get('action')
@@ -242,6 +240,11 @@ def control_panel_action():
         return redirect('/control-panel?section=users')
     else:
         return abort(404, description="Action not found")
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 @app.route('/<short_url>')
 def shortUrl(short_url):
