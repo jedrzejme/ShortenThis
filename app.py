@@ -62,11 +62,22 @@ def creating_user(username, password, permissions):
     db.execute("INSERT INTO users (username, password, permissions) VALUES (?, ?, ?)", (username, password, permissions))
     conn.commit()
 
+def delete_user(username):
+    db.execute('DELETE FROM users WHERE username = ?', (username,))
+    conn.commit()
+
 # Function to get user info
 def get_userinfo(username, column):
     db.execute(f'SELECT "{column}" FROM users WHERE username = ?', (username,))
     result = db.fetchone()
     return result[0] if result else None
+
+def get_all_users():
+    db.execute('SELECT * FROM users')
+    column_names = [description[0] for description in db.description]  # Access description right after the query
+    rows = db.fetchall()  # Fetch all rows after accessing the column names
+    result = [dict(zip(column_names, row)) for row in rows]
+    return result
 
 # Function to shorten URL
 def shortening_url(url, short_url):
@@ -202,6 +213,14 @@ def shorten_url():
                 changing_config('default_url_length', default_url_length)
                 return redirect('control-panel?section=urls')
             return render_template('control-panel.html', app_url = getting_config('app_url'), default_url_length = int(getting_config('default_url_length')), section=request.args.get("section"))
+        elif section == 'users':
+            if request.method == 'POST':
+                username = str(request.form.get("username"))
+                password = hash_string(str(request.form.get("password")))
+                permissions = 10
+                creating_user(username, password, permissions)
+                return render_template('control-panel.html', username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
+            return render_template('control-panel.html', username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
     else:
         return redirect('/login')
     
@@ -212,14 +231,17 @@ def logout():
 
 @app.route('/control-panel/action', methods=['GET', 'POST'])
 def control_panel_action():
-    if session.get('auth') or bool(getting_config('disable_authentication')):
-        action = request.args.get('action')
+    action = request.args.get('action')
+    if action == 'delete_url' and (session.get('auth') or bool(getting_config('disable_authentication'))):
         short_url = request.args.get('short_url')
-        if action == 'delete_url':
-            delete_url(short_url)
-            return redirect('/control-panel?section=urls')
-        else:
-            return abort(404, description="Action not found")
+        delete_url(short_url)
+        return redirect('/control-panel?section=urls')
+    elif action == 'delete_user' and session.get('auth'):
+        username = request.args.get('username')
+        delete_user(username)
+        return redirect('/control-panel?section=users')
+    else:
+        return abort(404, description="Action not found")
 
 @app.route('/<short_url>')
 def shortUrl(short_url):
