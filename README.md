@@ -79,7 +79,7 @@ python app.py
 ## 🚀 Features
 * Setup screen on first run
 * Authentication by password
-* Settings screen (not avaible in version hosted by me)
+* Settings screen (not available in version hosted by me)
 * Users screen (not available in version hosted by me)
 * Shortening URL with custom short URL (if not provided, short URL will be set to random string of length provided in setup)
 * Stats of clicks
