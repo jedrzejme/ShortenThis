@@ -186,7 +186,7 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if bool(getting_config('disable_authentication')):
+    if not bool(getting_config('disable_authentication')):
         if request.method == 'POST':
             username = str(request.form.get("username"))
             password = str(request.form.get("password"))
