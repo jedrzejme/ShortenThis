@@ -25,6 +25,7 @@ db.execute("""CREATE TABLE IF NOT EXISTS `users` (
 db.execute("""CREATE TABLE IF NOT EXISTS `config` (
 `id` INTEGER NOT NULL,
 `setuped` INTEGER NOT NULL,
+`app_name` TEXT NOT NULL,
 `app_url` TEXT NOT NULL,
 `app_secret_key` TEXT NOT NULL,
 `disable_authentication` INTEGER NOT NULL,
@@ -40,11 +41,11 @@ db.execute("""CREATE TABLE IF NOT EXISTS `urls` (
 )""")
 
 # Function to setup the app
-def setup(app_url, disable_authentication, default_url_length):
+def setup(app_name, app_url, disable_authentication, default_url_length):
     # Insert values to config table
     db.execute('SELECT setuped FROM config WHERE id = ?', ("1",))
     if db.fetchone() is None:
-        db.execute("INSERT INTO config (id, setuped, app_url, app_secret_key, disable_authentication, default_url_length) VALUES (1, ?, ?, ?, ?, ?)", (1, app_url, app.secret_key, disable_authentication, default_url_length))
+        db.execute("INSERT INTO config (id, setuped, app_name, app_url, app_secret_key, disable_authentication, default_url_length) VALUES (1, ?, ?, ?, ?, ?, ?)", (1, app_name, app_url, app.secret_key, disable_authentication, default_url_length))
         conn.commit()
 
 # Function to get a config setting
@@ -153,6 +154,7 @@ def index():
     if not setuped:
         if request.method == 'POST':
             # Handle the form submission
+            app_name = str(request.form.get("app-name"))
             app_url = str(request.form.get("app-url"))
             default_url_length = str(request.form.get("default-url-length"))
             favicon = request.files.get('favicon') or None
@@ -171,20 +173,20 @@ def index():
             else:
                 disable_authentication = 1
 
-            setup(app_url, disable_authentication, default_url_length)
+            setup(app_name, app_url, disable_authentication, default_url_length)
 
             # Redirect to the index after setup
             return redirect('/')
         
         # Render the setup page on GET requests
-        return render_template('setup.html', app_url = f"{request.headers.get('X-Forwarded-Proto') or request.scheme}://{request.headers.get('X-Forwarded-Host') or request.host}")
+        return render_template('setup.html', app_name="Shorten This", app_url = f"{request.headers.get('X-Forwarded-Proto') or request.scheme}://{request.headers.get('X-Forwarded-Host') or request.host}")
     
     # If already setup, render the index page
-    return render_template('index.html', disable_authentication=getting_config('disable_authentication'))
+    return render_template('index.html', app_name=getting_config('app_name'), disable_authentication=getting_config('disable_authentication'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if not bool(getting_config('disable_authentication')):
+    if bool(getting_config('disable_authentication')):
         if request.method == 'POST':
             username = str(request.form.get("username"))
             password = str(request.form.get("password"))
@@ -195,7 +197,7 @@ def login():
                 session['username'] = username
                 return redirect('/control-panel?section=urls')
             
-        return render_template('login.html')
+        return render_template('login.html', app_name=getting_config('app_name'))
     else:
         return redirect('/')
 
@@ -208,10 +210,11 @@ def control_panel():
                 url = request.form.get("url")
                 short_url = request.form.get("custom-short-url")
                 shortened_url = shortening_url(url, short_url)
-                return render_template('control-panel.html', shortened_url=shortened_url, username=session.get('username') or "user", urls=get_all_urls(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
-            return render_template('control-panel.html', username=session.get('username') or "user", urls=get_all_urls(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
+                return render_template('control-panel.html', app_name=getting_config('app_name'), shortened_url=shortened_url, username=session.get('username') or "user", urls=get_all_urls(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
+            return render_template('control-panel.html', app_name=getting_config('app_name'), username=session.get('username') or "user", urls=get_all_urls(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
         elif section == 'settings' and session.get('auth'):
             if request.method == 'POST':
+                app_name = str(request.form.get("app-name"))
                 app_url = str(request.form.get("app-url"))
                 default_url_length = str(request.form.get("default-url-length"))
                 favicon = request.files.get('favicon') or None
@@ -219,10 +222,11 @@ def control_panel():
                     file = favicon
                     file.save("static/assets/img/favicon.png")
 
+                changing_config('app_name', app_name)
                 changing_config('app_url', app_url)
                 changing_config('default_url_length', default_url_length)
                 return redirect('control-panel?section=settings')
-            return render_template('control-panel.html', username=session.get('username') or "user", app_url = getting_config('app_url'), default_url_length = int(getting_config('default_url_length')), section=request.args.get("section"))
+            return render_template('control-panel.html', app_name=getting_config('app_name'), username=session.get('username') or "user", app_url = getting_config('app_url'), default_url_length = int(getting_config('default_url_length')), section=request.args.get("section"))
         elif section == 'users' and session.get('auth'):
             if request.method == 'POST':
                 username = str(request.form.get("username"))
@@ -230,7 +234,7 @@ def control_panel():
                 permissions = 10
                 creating_user(username, password, permissions)
                 return redirect('control-panel?section=users')
-            return render_template('control-panel.html', username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
+            return render_template('control-panel.html', app_name=getting_config('app_name'), username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
     else:
         return redirect('/login')
     

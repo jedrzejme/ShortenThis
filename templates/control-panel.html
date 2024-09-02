@@ -19,7 +19,7 @@
         <div class="container" style="color: rgb(255,255,255);">
             <div class="text-center p-4 p-lg-5">
                 <p class="fw-bold mb-2" style="color: rgb(255,138,0);border-color: #ff8a00;">Control panel</p>
-                <h1 class="fw-bold mb-4" style="font-family: 'Roboto';">Shorten This</h1>
+                <h1 class="fw-bold mb-4" style="font-family: 'Roboto';">{{ app_name }}</h1>
             </div>
         </div>
     </section><!-- End: Banner Clean -->{% if section == "urls" %}
@@ -138,6 +138,14 @@
                 </div>
                 <div class="row">
                     <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="file" id="favicon" name="favicon"></div>
+                </div>
+            </div>
+            <div style="margin-bottom: 1em;">
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><label class="col-form-label text-center" style="color: rgb(255,255,255);font-family: 'Roboto';" for="app-name">App name</label></div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><input class="form-control" type="text" id="app-name" autocomplete="off" name="app-name" value="{{ app_name }}" required=""></div>
                 </div>
             </div>
             <div style="margin-bottom: 1em;">
