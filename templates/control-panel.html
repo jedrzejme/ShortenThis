@@ -125,9 +125,9 @@
     <div class="container" style="background: #434343;border-radius: 1em;padding: 1em;">
         <div class="row">
             <div class="col">
-                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p>{% if not disable_authentication %}<a href="/control-panel?section=urls" style="color: rgba(13,110,253,0);">
+                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p><a href="/control-panel?section=urls" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">URLs</p>
-                </a><a href="/control-panel?section=users" style="color: rgba(13,110,253,0);">
+                </a>{% if not disable_authentication %}<a href="/control-panel?section=users" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">Users</p>
                 </a><a href="/control-panel/action?action=download_backup" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">Download backup</p>
@@ -178,9 +178,9 @@
     <div class="container" style="background: #434343;border-radius: 1em;padding: 1em;">
         <div class="row">
             <div class="col">
-                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p>{% if not disable_authentication %}<a href="/control-panel?section=urls" style="color: rgba(13,110,253,0);">
+                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p><a href="/control-panel?section=urls" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">URLs</p>
-                </a><a href="/control-panel?section=settings" style="color: rgba(13,110,253,0);">
+                </a>{% if not disable_authentication %}<a href="/control-panel?section=settings" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">Settings</p>
                 </a><a href="/control-panel/action?action=download_backup" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">Download backup</p>
@@ -257,9 +257,9 @@
     <div class="container" style="background: #434343;border-radius: 1em;padding: 1em;">
         <div class="row">
             <div class="col">
-                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p>{% if not disable_authentication %}<a href="/control-panel?section=urls" style="color: rgba(13,110,253,0);">
+                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p><a href="/control-panel?section=urls" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">URLs</p>
-                </a><a href="/control-panel?section=settings" style="color: rgba(13,110,253,0);">
+                </a>{% if not disable_authentication %}<a href="/control-panel?section=settings" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">Settings</p>
                 </a><a href="/control-panel?section=users" style="color: rgba(13,110,253,0);">
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">Users</p>
