@@ -254,7 +254,7 @@ def control_panel():
                 creating_user(username, password, permissions)
                 return redirect('control-panel?section=users')
             return render_template('control-panel.html', app_name=getting_config('app_name'), username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
-        elif section == 'stats' and session.get('auth'):
+        elif section == 'stats' and session.get('auth') or bool(getting_config('disable_authentication')):
             short_url = request.args.get('short_url')
             return render_template('control-panel.html', app_name=getting_config('app_name'), username=session.get('username') or "user", stats=get_stats(short_url), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"), short_url=short_url)
     else:
