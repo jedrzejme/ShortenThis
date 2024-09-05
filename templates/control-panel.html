@@ -110,7 +110,11 @@
                 <td style="background: rgb(67,67,67);color: rgb(255,255,255);">{{ url.date }}</td>
                 <td style="background: rgb(67,67,67);color: rgb(255,255,255);">{{ url.ip }}</td>
                 <td style="background: rgb(67,67,67);color: rgb(255,255,255);">{{ url.clicks }}</td>
-                <td style="background: rgb(67,67,67);color: rgba(255,255,255,0);"><a href="/control-panel/action?action=delete_url&amp;short_url={{ url.short_url }}" style="color: rgba(13,110,253,0);"><i class="far fa-trash-alt text-white d-flex d-xxl-flex justify-content-start justify-content-xxl-start" style="color: rgba(255,255,255,0);"></i></a></td>
+                <td style="background: rgb(67,67,67);color: rgba(255,255,255,0);">
+                    <div class="d-flex d-xxl-flex align-items-center align-items-xxl-center"><a href="/control-panel/action?action=delete_url&amp;short_url={{ url.short_url }}" style="color: rgba(13,110,253,0);"><i class="far fa-trash-alt text-white d-flex d-xxl-flex justify-content-start justify-content-xxl-start" style="color: rgba(255,255,255,0);"></i></a><a href="/control-panel?section=stats&amp;short_url={{ url.short_url }}" style="color: rgba(13,110,253,0);margin-left: 1vw;"><svg class="bi bi-graph-up text-white d-flex d-xxl-flex justify-content-start justify-content-xxl-start" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" style="color: rgba(255,255,255,0);">
+                                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"></path>
+                            </svg></a></div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -182,7 +186,7 @@
                     <p style="color: rgb(255,255,255);margin-bottom: 0;">Download backup</p>
                 </a>{% endif %}
             </div>{% if not disable_authentication %}
-            <div class="col text-end"><a class="btn btn-primary" role="button" id="logout-1" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 2em;padding-right: 2em;" href="/logout"><strong>Logout</strong></a></div>{% endif %}
+            <div class="col text-end"><a class="btn btn-primary" role="button" id="logout-3" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 2em;padding-right: 2em;" href="/logout"><strong>Logout</strong></a></div>{% endif %}
         </div>
         <div class="row">
             <div class="col">
@@ -195,7 +199,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                        <!-- Start: username --><input class="form-control" type="text" id="username" autocomplete="off" required="" name="username"><!-- End: username -->
+                                        <!-- Start: username --><input class="form-control" type="text" id="username-1" autocomplete="off" required="" name="username"><!-- End: username -->
                                     </div>
                                 </div>
                             </div>
@@ -203,11 +207,11 @@
                         <div class="col">
                             <div>
                                 <div class="row">
-                                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><label class="col-form-label" style="color: rgb(255,255,255);" for="password">Password</label></div>
+                                    <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center"><label class="col-form-label" style="color: rgb(255,255,255);" for="password-1">Password</label></div>
                                 </div>
                                 <div class="row">
                                     <div class="col d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                        <!-- Start: password --><input class="form-control" type="password" id="password" name="password"><!-- End: password -->
+                                        <!-- Start: password --><input class="form-control" type="password" id="password-1" name="password"><!-- End: password -->
                                     </div>
                                 </div>
                             </div>
@@ -242,6 +246,59 @@
                     <div>{% if username == user.username %}</div><i class="far fa-trash-alt text-white-50 d-flex d-xxl-flex justify-content-start justify-content-xxl-start" style="color: rgba(255,255,255,0);"></i>
                     <div>{% else %}</div><a href="/control-panel/action?action=delete_user&amp;username={{ user.username }}" style="color: rgba(13,110,253,0);"><i class="far fa-trash-alt text-white d-flex d-xxl-flex justify-content-start justify-content-xxl-start" style="color: rgba(255,255,255,0);"></i></a>
                     <div>{% endif %}</div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+        </div>
+    </div>{% endif %}{% if section == "stats" %}
+    <div class="container" style="background: #434343;border-radius: 1em;padding: 1em;">
+        <div class="row">
+            <div class="col">
+                <p class="fw-lighter" style="margin-bottom: 0;"><span style="color: rgb(255, 255, 255);">Hello,</span> <strong>{{ username }}</strong><span style="color: rgb(255, 255, 255);">!</span></p>{% if not disable_authentication %}<a href="/control-panel?section=urls" style="color: rgba(13,110,253,0);">
+                    <p style="color: rgb(255,255,255);margin-bottom: 0;">URLs</p>
+                </a><a href="/control-panel?section=settings" style="color: rgba(13,110,253,0);">
+                    <p style="color: rgb(255,255,255);margin-bottom: 0;">Settings</p>
+                </a><a href="/control-panel?section=users" style="color: rgba(13,110,253,0);">
+                    <p style="color: rgb(255,255,255);margin-bottom: 0;">Users</p>
+                </a><a href="/control-panel/action?action=download_backup" style="color: rgba(13,110,253,0);">
+                    <p style="color: rgb(255,255,255);margin-bottom: 0;">Download backup</p>
+                </a>{% endif %}
+            </div>{% if not disable_authentication %}
+            <div class="col text-end"><a class="btn btn-primary" role="button" id="logout-1" style="background: #ff8a00;font-family: 'Roboto';color: rgb(255,255,255);border-style: none;padding-left: 2em;padding-right: 2em;" href="/logout"><strong>Logout</strong></a></div>{% endif %}
+        </div>
+        <div class="row" style="margin-top: 1em;margin-bottom: 1em;">
+            <div class="col text-center">
+                <p style="color: rgb(255,255,255);">URL stats for<br><strong><em>{{ short_url }}</em></strong></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"><div class="table-responsive" style="border-radius: 1em;margin-top: 1em;margin-bottom: 1em;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">Date</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">IP</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">User agent</th>
+                <th style="background: rgb(28,28,28);color: rgb(255,255,255);">Referer</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for stat in stats %}
+            <tr>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);">
+                    <p style="color: rgb(255,255,255);">{{ stat.date }}</p>
+                </td>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);">
+                    <p style="color: rgb(255,255,255);">{{ stat.ip }}</p>
+                </td>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);">
+                    <p style="color: rgb(255,255,255);">{{ stat.user_agent }}</p>
+                </td>
+                <td style="background: rgb(67,67,67);color: rgb(255,255,255);">
+                    <p style="color: rgb(255,255,255);">{{ stat.referer}}</p>
                 </td>
             </tr>
             {% endfor %}

@@ -37,7 +37,16 @@ db.execute("""CREATE TABLE IF NOT EXISTS `urls` (
 `url` TEXT NOT NULL,
 `date` TEXT NOT NULL,
 `ip` TEXT NOT NULL,
-`clicks` INTEGER NOT NULL
+`clicks` INTEGER
+)""")
+
+db.execute("""CREATE TABLE IF NOT EXISTS `stats` (
+`id` integer primary key NOT NULL,
+`short_url` TEXT,
+`date` TEXT,
+`ip` TEXT,
+`user_agent` TEXT,
+`referer` TEXT
 )""")
 
 # Function to setup the app
@@ -98,6 +107,21 @@ def shortening_url(url, short_url):
     conn.commit()
     return shortened_url
 
+def add_stats(short_url):
+    now = datetime.now()
+    formatted_date = now.strftime("%b %d, %Y %H:%M")
+    db.execute("INSERT INTO stats (short_url, date, ip, user_agent, referer) VALUES (?, ?, ?, ?, ?)", (short_url, formatted_date, request.remote_addr, request.headers.get('User-Agent'), request.headers.get('Referer')))
+    conn.commit()
+    db.execute("UPDATE urls SET clicks = clicks + 1 WHERE short_url = ?", (short_url,))
+    conn.commit()
+
+def get_stats(short_url):
+    db.execute('SELECT * FROM stats WHERE short_url = ? ORDER BY id DESC', (short_url,))
+    column_names = [description[0] for description in db.description]
+    rows = db.fetchall()
+    result = [dict(zip(column_names, row)) for row in rows]
+    return result
+
 # Correct the URL format
 def correction_of_url(url):
     if not url.startswith('http://') and not url.startswith('https://'):
@@ -122,15 +146,10 @@ def get_all_urls():
     result = [dict(zip(column_names, row)) for row in rows]
     return result
 
-def add_click(short_url):
-    db.execute('SELECT clicks FROM urls WHERE short_url = ?', (short_url,))
-    result = db.fetchone()
-    clicks = result[0] + 1
-    db.execute('UPDATE urls SET clicks = ? WHERE short_url = ?', (clicks, short_url))
-    conn.commit()
-
 def delete_url(short_url):
     db.execute('DELETE FROM urls WHERE short_url = ?', (short_url,))
+    conn.commit()
+    db.execute('DELETE FROM stats WHERE short_url = ?', (short_url,))
     conn.commit()
 
 # Function to generate a random string
@@ -235,6 +254,9 @@ def control_panel():
                 creating_user(username, password, permissions)
                 return redirect('control-panel?section=users')
             return render_template('control-panel.html', app_name=getting_config('app_name'), username=session.get('username') or "user", users=get_all_users(), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"))
+        elif section == 'stats' and session.get('auth'):
+            short_url = request.args.get('short_url')
+            return render_template('control-panel.html', app_name=getting_config('app_name'), username=session.get('username') or "user", stats=get_stats(short_url), disable_authentication=bool(getting_config('disable_authentication')), section=request.args.get("section"), short_url=short_url)
     else:
         return redirect('/login')
     
@@ -265,7 +287,8 @@ def shortUrl(short_url):
     # Check if the short_url exists
     if does_shorted_url_exist(short_url) == short_url:
         url = get_url(short_url)
-        add_click(short_url)
+        add_stats(short_url)
+        print(dict(request.headers))
         return redirect(url, code=301)
     else:
         return abort(404, description="URL not found")
