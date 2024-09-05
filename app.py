@@ -251,7 +251,7 @@ def control_panel_action():
         return redirect('/control-panel?section=users')
     elif action == 'download_backup' and session.get('auth'):
         now = datetime.now()
-        return send_file("database.db", as_attachment=True, download_name=f"ShortenThis-backup-{now.strftime("%Y-%m-%d %H-%M-%S")}.db")
+        return send_file("database.db", as_attachment=True, download_name=f"""{getting_config("app_name")}-backup-{now.strftime("%Y-%m-%d %H-%M-%S")}.db""")
     else:
         return abort(404, description="Action not found")
 
