@@ -52,14 +52,17 @@ services:
         ports:
             - 5000:5000 # <Host Port>:<Container Port (do not change)>
         image: jedrzejme/shorten-this:latest
+        volumes:
+            - database.db:/app/database.db
         restart: unless-stopped
 ```
 3) Optionally edit port in docker-compose.yml
-4) Run docker-compose (by default it will run on port 5000):
+4) Create empty file called database.db in the same directory as docker-compose.yml
+5) Run docker-compose (by default it will run on port 5000):
 ```
 docker-compose up -d
 ```
-5) It works!
+6) It works!
 
 ## 🐍 Using Python to run Shorten That
 1) Install Python
@@ -72,11 +75,12 @@ git clone https://github.com/jedrzejme/ShortenThis.git
 python -m pip install -r requirements.txt
 ```
 4) Optionally edit port in app.py (port is defined at the bottom of script)
-5) Run app.py (by default it will run on port 5000):
+5) Create empty file called database.db in the same directory as this repository
+6) Run app.py (by default it will run on port 5000):
 ```
 python app.py
 ```
-6) It works!
+7) It works!
 
 ## 🚀 Features
 * Setup screen on first run
