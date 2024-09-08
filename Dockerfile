@@ -4,11 +4,9 @@ WORKDIR /app
 
 COPY . /app/
 
+RUN touch /app/database.db
+
 RUN pip install --no-cache-dir -r requirements.txt
-
-RUN chmod 644 /app/config.ini
-
-RUN chmod 644 /app/urls.ini
 
 EXPOSE 5000
 

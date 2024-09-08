@@ -1,10 +1,7 @@
 services:
-    yourowncard:
+    shorten-this:
         container_name: shorten-this
         ports:
             - 5000:5000 # <Host Port>:<Container Port (do not change)>
-        image: shorten-this
-        volumes:
-            - ./database.db:/app/database.db
-            - ./config.ini:/app/config.ini
+        image: jedrzejme/shorten-this:latest
         restart: unless-stopped

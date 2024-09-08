@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, abort, redirect, session, send_file
-from configparser import ConfigParser
 import random
 import string
 import hashlib
@@ -10,10 +9,6 @@ app = Flask(__name__, static_url_path='/static')
 
 conn = sqlite3.connect('database.db', check_same_thread=False)
 db = conn.cursor()
-
-# Config for app settings
-app_config = ConfigParser()
-app_config.read('config.ini')
 
 # Create tables if not exists
 db.execute("""CREATE TABLE IF NOT EXISTS `users` (
@@ -160,11 +155,6 @@ def random_string(length):
 def hash_string(string):
     return hashlib.sha256(string.encode()).hexdigest()
 
-# App settings from config.ini
-app.secret_key = str(random_string(32))
-port = app_config.getint('main', 'port')
-debug = app_config.getboolean('main', 'debug')
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     db.execute('SELECT setuped FROM config WHERE id = ?', ("1",))
@@ -293,5 +283,9 @@ def shortUrl(short_url):
     else:
         return abort(404, description="URL not found")
 
+app.secret_key = str(random_string(32))
+app_port = 5000
+app_debug = False
+
 if __name__ == '__main__':
-    app.run(host="localhost", port=port, debug=debug)
+    app.run(host="localhost", port=app_port, debug=app_debug)

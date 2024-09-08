@@ -43,21 +43,23 @@
 * [Git management](https://desktop.github.com/)
 
 ## 🐳 Using docker-compose to run Shorten That
-1) Install Docker, docker-compose and Git
-2) Clone this repository and enter its directory:
+1) Install Docker and docker-compose
+2) Create file called docker-compose.yml and paste this inside:
 ```
-git clone https://github.com/jedrzejme/ShortenThis.git
+services:
+    shorten-this:
+        container_name: shorten-this
+        ports:
+            - 5000:5000 # <Host Port>:<Container Port (do not change)>
+        image: jedrzejme/shorten-this:latest
+        restart: unless-stopped
 ```
-3) Create docker image:
-```
-docker build -t shorten-this .
-```
-4) Optionally edit port in docker-compose.yml
-5) Run docker-compose (by default it will run on port 5000):
+3) Optionally edit port in docker-compose.yml
+4) Run docker-compose (by default it will run on port 5000):
 ```
 docker-compose up -d
 ```
-6) It works!
+5) It works!
 
 ## 🐍 Using Python to run Shorten That
 1) Install Python
