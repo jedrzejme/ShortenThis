@@ -5,5 +5,5 @@ services:
             - 5000:5000 # <Host Port>:<Container Port (do not change)>
         image: jedrzejme/shorten-this:latest
         volumes:
-            - database.db:/app/database.db
+            - ./database.db:/app/database.db
         restart: unless-stopped
