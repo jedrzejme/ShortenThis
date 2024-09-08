@@ -71,7 +71,7 @@ git clone https://github.com/jedrzejme/ShortenThis.git
 ```
 python -m pip install -r requirements.txt
 ```
-4) Optionally edit port in config.ini
+4) Optionally edit port in app.py (port is defined at the bottom of script)
 5) Run app.py (by default it will run on port 5000):
 ```
 python app.py
