@@ -259,7 +259,8 @@ def control_panel_action():
         return redirect('/control-panel?section=urls')
     elif action == 'delete_user' and session.get('auth'):
         username = request.args.get('username')
-        delete_user(username)
+        if not username == session.get('username'):
+            delete_user(username)
         return redirect('/control-panel?section=users')
     elif action == 'download_backup' and session.get('auth'):
         now = datetime.now()
