@@ -66,7 +66,7 @@ docker-compose up -d
 1) Install Python
 2) Clone this repository and enter its directory:
 ```
-git clone https://github.com/jedrzejme/ShortenThis.git
+git clone https://github.com/jbakalarski/ShortenThis.git
 ```
 3) Install requirements.txt:
 ```
