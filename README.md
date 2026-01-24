@@ -30,12 +30,11 @@
 **❓ What is this?** Web app for shortening links. Backend is written in Flask (Python framework).
 
 **❓ How to use it?**
-* [**Using docker-compose**](#using-docker-compose-to-run-shorten-this)
-* [**Using Python**](#using-python-to-run-shorten-this)
+* [**Using docker-compose**](#-using-docker-compose-to-run-shorten-this)
+* [**Using Python**](#-using-python-to-run-shorten-this)
 
 **❓ What did I use?**
 * [Python](https://www.python.org/)
-* [Python libraries](/requirements.txt)
 * [Docker](https://www.docker.com/)
 * [Bootstrap Studio](https://bootstrapstudio.io/)
 * [Coding](https://code.visualstudio.com/)
