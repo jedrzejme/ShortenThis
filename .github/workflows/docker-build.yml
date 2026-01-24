@@ -4,9 +4,21 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'app.py'
+      - 'requirements.txt'
+      - 'Dockerfile'
+      - 'static/**'
+      - 'templates/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'app.py'
+      - 'requirements.txt'
+      - 'Dockerfile'
+      - 'static/**'
+      - 'templates/**'
 
 jobs:
   build:
