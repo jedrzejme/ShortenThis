@@ -11,17 +11,17 @@
 </h1>
 
 <div align = 'center'>
-    <a href = 'https://github.com/jedrzejme/ShortenThis/'>
-        <img src = 'https://img.shields.io/github/stars/jedrzejme/ShortenThis?style=for-the-badge&color=%23cfb002'/>
+    <a href = 'https://github.com/jbakalarski/ShortenThis/'>
+        <img src = 'https://img.shields.io/github/stars/jbakalarski/ShortenThis?style=for-the-badge&color=%23cfb002'/>
     </a>
-    <a href = 'https://github.com/jedrzejme/ShortenThis/tags'>
-        <img src = 'https://img.shields.io/github/v/tag/jedrzejme/ShortenThis?style=for-the-badge&label=version'/>
+    <a href = 'https://github.com/jbakalarski/ShortenThis/tags'>
+        <img src = 'https://img.shields.io/github/v/tag/jbakalarski/ShortenThis?style=for-the-badge&label=version'/>
     </a>
-    <a href = 'https://github.com/jedrzejme/ShortenThis/issues'>
-        <img src = 'https://img.shields.io/github/issues/jedrzejme/ShortenThis?style=for-the-badge&color=%23ff6f00'/>
+    <a href = 'https://github.com/jbakalarski/ShortenThis/issues'>
+        <img src = 'https://img.shields.io/github/issues/jbakalarski/ShortenThis?style=for-the-badge&color=%23ff6f00'/>
     </a>
-    <a href = 'https://github.com/jedrzejme/ShortenThis/pulls'>
-        <img src = 'https://img.shields.io/github/issues-pr/jedrzejme/ShortenThis?style=for-the-badge'/>
+    <a href = 'https://github.com/jbakalarski/ShortenThis/pulls'>
+        <img src = 'https://img.shields.io/github/issues-pr/jbakalarski/ShortenThis?style=for-the-badge'/>
     </a>
 </div>
 
