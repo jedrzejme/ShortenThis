@@ -14,8 +14,11 @@
     <a href = 'https://github.com/jbakalarski/ShortenThis/'>
         <img src = 'https://img.shields.io/github/stars/jbakalarski/ShortenThis?style=for-the-badge&color=%23cfb002'/>
     </a>
-    <a href = 'https://github.com/jbakalarski/ShortenThis/tags'>
-        <img src = 'https://img.shields.io/github/v/tag/jbakalarski/ShortenThis?style=for-the-badge&label=version'/>
+    <a href='https://hub.docker.com/r/jedrzejme/shorten-this'>
+        <img src='https://img.shields.io/docker/pulls/jedrzejme/shorten-this?style=for-the-badge&label=DOCKER%20PULLS'/>
+    </a>
+    <a href='https://github.com/jbakalarski/ShortenThis/tags'>
+        <img src='https://img.shields.io/github/v/tag/jbakalarski/ShortenThis?sort=date&style=for-the-badge&label=VERSION&color=%23db34eb'/>
     </a>
     <a href = 'https://github.com/jbakalarski/ShortenThis/issues'>
         <img src = 'https://img.shields.io/github/issues/jbakalarski/ShortenThis?style=for-the-badge&color=%23ff6f00'/>
